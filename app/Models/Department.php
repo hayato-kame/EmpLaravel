@@ -16,5 +16,16 @@ class Department extends Model
      */
     public $timestamps = false;
 
+    //primaryKeyの変更
+    protected $primaryKey = "department_id";
+
+    /**
+     * IDが自動増分されるか
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+
     
 }

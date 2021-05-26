@@ -17,4 +17,14 @@ class DepartmentsController extends Controller
         // departments.index は resources/views/departments/index.blade.php を意味します。
         // 第二引数にはそのViewに渡したいデータの連想配列を指定します。ビュー側では、連想配列のキーの名前の変数名(値は、連想配列の値)が使えます
     }
+
+    public function new_entry_edit(Request $request) // フォームからの送信を $requestインスタンスで受け取る
+    {
+        // dd($request);
+        $action = $request->action;
+
+        
+        return view('departments.new_entry_edit');
+
+    }
 }

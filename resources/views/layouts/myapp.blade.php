@@ -25,7 +25,7 @@
     .noborder {
     border: 0px none;
     }
-    
+
     ul.toolbar , div.toolbar{
     margin: 20px;
     text-align: right;
@@ -53,7 +53,8 @@
 
    </style>
 </head>
-<body>
+{{-- BootStrap用に class="container" を必ずつける --}}
+<body class="container">
    <h1>@yield('title')</h1>
    @section('menubar')
    <h2 class="menutitle">※メニュー</h2>

@@ -25,7 +25,5 @@ class Department extends Model
      * @var bool
      */
     public $incrementing = false;
-
-
     
 }

@@ -53,7 +53,7 @@
 
    </style>
 </head>
-{{-- BootStrap用に class="container" を必ずつける --}}
+{{-- bodyタグには、BootStrap用に class="container" を必ずつける --}}
 <body class="container">
    <h1>@yield('title')</h1>
    @section('menubar')

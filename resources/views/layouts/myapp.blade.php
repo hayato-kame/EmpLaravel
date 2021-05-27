@@ -33,8 +33,11 @@
 
     /* フラッシュ */
     p.notice {
+    font-size: 0.8em;
     border: 1px solid blue;
-    padding: 3px;
+    padding: 10px;
+    margin-top: 15px;
+   
     background-color: #ccf;
     border-radius: 5px;
     }

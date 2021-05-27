@@ -32,16 +32,15 @@ class DepartmentsController extends Controller
         // dd($request);
         $action = $request->action;
         // dd($request->action);
-        $department = new Department;
-        // dd($department->department_id);
+        // dd($department->department_id);  // hiddenフィールドで送られくる
         switch ($action) {
             case "add":
+                $department = new Department;
                 break;
             case "edit":
-
+                $department = Department::find($request->department_id);
                 break;
         }
-
         return view('departments.new_entry_edit', ['department' => $department, 'action' => $action, ]);
     }
 
@@ -49,8 +48,35 @@ class DepartmentsController extends Controller
     {
         $action = $request->action;
         $f_message = '';
-        // dd($request->department_id); //新規作成では、 null
-        
+        // dd($request->department_name); // フォームに入力された値を取得
+        // dd($request->department_id); // hiddenフィールドから送られてくる値 新規作成では、 null
+        switch($action){
+            case 'add':
+                    $last_department = Department::orderby('department_id', 'desc')->first();
+                    // dd($last_department);
+                    // dd($last_department->department_id);
+                    if ($last_department == null) {
+                        $result = "D01";  // 初期値
+                    } else {
+                        $str = substr($last_department->department_id, 1, 2);
+                        // dd($str);  // "01" とかになってる
+                        // intval関数は引数で設定した値を整数値に変換させることができます。
+                        // dd(intval($str) + 1 );   // 2 とかになる
+                        $result = sprintf("D%02d", intval($str) + 1 );
+                        // dd($result);  //  "D02"  とかになってる
+                        $department = new Department;
+                        $department->department_id = $result;  // 文字列を代入
+                        $department->department_name = $request->department_name;
+                        $department->save();
+                        // dd($department);
+                        $f_message = 'データ新規作成しました';  // フラッシュメッセージ
+                    }
+                break;
+            case 'edit':
+                
+                break;
+        }
+        return redirect('/departments')->with([ 'f_message' => $f_message ]);  // リダイレクトは、セッションスコープに f_message というキーで、値が保存されます。
 
     }
 

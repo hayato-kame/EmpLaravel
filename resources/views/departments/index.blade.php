@@ -12,9 +12,9 @@
     <h3>部署一覧:</h3>
 
     {{-- フラッシュメッセージ --}}
-    @if(session('flash_message'))
+    @if(session('f_message'))
         <p class="notice">
-            メッセージ:{{session('flash_message')}}
+            メッセージ:{{session('f_message')}}
         </p>
     @endif
 
@@ -44,7 +44,7 @@
                             {!! Form::close() !!}
                         </td>
                         <td>
-                            {!! Form::model($department, ['route' => ['departments.new_entry_edit', $department->department_id], 'method' => 'post']) !!}
+                            {!! Form::model($department, ['route' => ['departments.dep_control', $department->department_id], 'method' => 'post']) !!}
                                 {!! Form::hidden('action', "delete") !!}
                                 {!! Form::hidden('department_id', $department->department_id) !!}
                                 {!! Form::submit('削除', ['class' => 'btn btn-danger', 'onclick' => 'confirm("本当に削除してよろしいですか")']) !!}

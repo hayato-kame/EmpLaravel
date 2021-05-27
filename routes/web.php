@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DepartmentsController;
-
+use App\Http\Controllers\EmployeesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,4 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/departments', [ DepartmentsController::class, 'index' ])->name('departments.index');
 Route::get('/departments/new_entry_edit', [ DepartmentsController::class, 'new_entry_edit' ])->name('departments.new_entry_edit');
 Route::post('/departments/dep_control', [ DepartmentsController::class, 'dep_control' ])->name('departments.dep_control');
+
+Route::get('/employees', [ EmployeesController::class, 'index' ])->name('employees.index');
+Route::get('/employees/new_entry_edit', [ EmployeesController::class, 'new_entry_edit' ])->name('employees.new_entry_edit');
+
+
 

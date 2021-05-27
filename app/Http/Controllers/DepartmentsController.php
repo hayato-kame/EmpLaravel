@@ -9,7 +9,8 @@ use Illuminate\Database\QueryException;  // App\Http\Controllers\QueryException�
 class DepartmentsController extends Controller
 {
     /**
-     * 一覧表示する
+     * 一覧表示する  Route::get('/departments', [ DepartmentsController::class, 'index' ])->name('departments.index');
+     *
      */
     public function index()
     {
@@ -23,7 +24,7 @@ class DepartmentsController extends Controller
     }
 
     /**
-     * 新規作成と編集の画面を表示する
+     * 新規作成と編集の画面を表示する   Route::get('/departments/new_entry_edit', [ DepartmentsController::class, 'new_entry_edit' ])->name('departments.new_entry_edit');
      *
      * @param  \Illuminate\Http\Request  $request
      * @return Response
@@ -45,6 +46,13 @@ class DepartmentsController extends Controller
         return view('departments.new_entry_edit', ['department' => $department, 'action' => $action, ]);
     }
 
+    /**
+     * 部署データを新規作成する処理・部署名を変更する処理・部署データを削除する処理
+     * Route::post('/departments/dep_control', [ DepartmentsController::class, 'dep_control' ])->name('departments.dep_control');
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return Redirect
+     */
     public function dep_control(Request $request)
     {
         $action = $request->action;
@@ -71,7 +79,7 @@ class DepartmentsController extends Controller
                         $department->department_name = $request->department_name;
                         $department->save();
                         // dd($department);
-                        $f_message = 'データ新規作成しました。';  // フラッシュメッセージ
+                        $f_message = '部署データ新規作成しました。';  // フラッシュメッセージ
                 break;
             case 'edit':
                 $department = Department::find($request->department_id); // findメソッドはプライマリーキーを引数にとる
@@ -90,8 +98,6 @@ class DepartmentsController extends Controller
                 $f_message = 'データを削除しました。';
                 break;
             }
-
         return redirect('/departments')->with([ 'f_message' => $f_message ]);  // リダイレクトは、セッションスコープに f_message というキーで、値が保存されます。
-
     }
 }

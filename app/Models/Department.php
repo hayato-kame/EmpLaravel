@@ -39,17 +39,19 @@ class Department extends Model
 
     public function employees() //複数形のメソッドにする
     {
-        return $this->hasMany(Employee::class, "employee_id");
+        return $this->hasMany(Employee::class, "employee_id"); // 第二引数外部キー
+        // return $this->hasMany('App\Models\Employee', "employee_id");
     }
 
-     // バリデーションのルール public　static なクラスメソッドとして定義する 使う側は、クラス名::メソッド名で呼び出せる
-     public static $rules = [
-         'department_name' => 'required',
-     ];
+    // Departmentのフォームは、Departmentモデルに、バリデーションを記述する
+    // バリデーションのルール public　static なクラスメソッドとして定義する 使う側は、クラス名::メソッド名で呼び出せる
+    public static $rules = [
+        'department_name' => 'required',
+    ];
 
-     // バリデーション失敗時のエラーメッセージ
-     public static $messages = [
-         'department_name.require' => '部署名は必ず入れてください',
-     ];
+    // バリデーション失敗時のエラーメッセージ
+    public static $messages = [
+        'department_name.require' => '部署名は必ず入れてください',
+    ];
 
 }

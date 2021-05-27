@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use Illuminate\Database\QueryException;  // App\Http\Controllers\QueryException　では無いので注意する
 
 class DepartmentsController extends Controller
 {
@@ -64,21 +65,33 @@ class DepartmentsController extends Controller
                         // dd(intval($str) + 1 );   // 2 とかになる
                         $result = sprintf("D%02d", intval($str) + 1 );
                         // dd($result);  //  "D02"  とかになってる
+                    }
                         $department = new Department;
                         $department->department_id = $result;  // 文字列を代入
                         $department->department_name = $request->department_name;
                         $department->save();
                         // dd($department);
-                        $f_message = 'データ新規作成しました';  // フラッシュメッセージ
-                    }
+                        $f_message = 'データ新規作成しました。';  // フラッシュメッセージ
                 break;
             case 'edit':
-                
+                $department = Department::find($request->department_id); // findメソッドはプライマリーキーを引数にとる
+                $department->department_name = $request->department_name; // フォームから送られた値を取得して、プロパティに代入する
+                $department->save();
+                $f_message = '部署名を更新しました。';
                 break;
-        }
+            case 'delete':
+                $department = Department::find($request->department_id);
+                try {  // 子テーブルemployeesの外部キー制約で、->onDelete('restrict')  だと、親を消そうとして、紐づく子テーブルのデータがあったら、エラー発生する
+                    $department->delete();
+                } catch(QueryException $e) {
+                    $f_message = 'この部署は、所属する社員がいるので、削除できませんでした。';
+                    return redirect('/departments')->with([ 'flash_message' => $f_message ]);  // return　で即終了して呼び出し元へ戻ります
+                }
+                $f_message = 'データを削除しました。';
+                break;
+            }
+
         return redirect('/departments')->with([ 'f_message' => $f_message ]);  // リダイレクトは、セッションスコープに f_message というキーで、値が保存されます。
 
     }
-
-
 }

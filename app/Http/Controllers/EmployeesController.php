@@ -10,7 +10,7 @@ class EmployeesController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        dd($employees);
+        // dd($employees);
         return view('employees.index', [ 'employees' => $employees ]);
     }
 

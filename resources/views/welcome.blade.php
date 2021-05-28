@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        {{-- 追加しました --}}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -36,7 +40,50 @@
                 </div>
             @endif
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+
+                {{-- ここから追加しました --}}
+                <div class="center jumbotron">
+                <div class="text-center">
+                    <h1>Welcome to the Employee Managing System</h1>
+                </div>
+                <div class="py-12">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div class=" overflow-hidden shadow-xl sm:rounded-lg">
+                            <div class="grid grid-cols-1 md:grid-cols-2">
+                                <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
+                                    <div class="ml-12">
+                                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                                {{-- ログインしていたら、リンクを表示する --}}
+                                            @auth
+                                            <li><a href="{{ url('/users') }}" class="text-lg text-gray-700 underline">ユーザー一覧画面</a></li>
+                                            @endauth
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                                    <div class="ml-12">
+                                        <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                                {{-- ログインしていたら、リンクを表示する --}}
+                                            @auth
+                                            <li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面</a></li>
+                                            <li><a href="{{ url('/employees') }}" class="text-lg text-gray-700 underline">従業員一覧画面</a></li>
+                                        </div>
+                                        @endauth
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- ここまで追加した --}}
+
+
+
+            {{-- 元からあった下はコメントアウトする --}}
+
+            {{-- <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">
@@ -126,7 +173,16 @@
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
                     </div>
                 </div>
-            </div>
+            </div> --}}
+
+            {{-- ここまでコメントアウトする --}}
+
         </div>
+              {{-- 4つ追加しました --}}
+              <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+              <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+
     </body>
 </html>

@@ -9,6 +9,16 @@
 
 @section('content')
 
+<p>社員一覧:<p>
+
+{{-- フラッシュメッセージ リダイレクトされてきたので、セッションスコープから取り出すには sessionメソッドで引数にキーを指定する --}}
+@if(session('f_message'))
+    <p class="notice">{{session('f_message')}}</p>
+@endif
+
+<div class="toolbar">
+    {!! link_to_route('dashboard', 'Dashboardへ戻る', []) !!}
+</div>
 
 <table class="table table-stripe">
     <thead>
@@ -38,7 +48,7 @@
 </table>
 
 {{-- <li><a href="{{ url('/users') }}" class="text-lg text-gray-700 underline">ユーザー一覧画面</a></li> --}}
-<li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面</a></li>
+<li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面ページへ</a></li>
 
 @endsection
 

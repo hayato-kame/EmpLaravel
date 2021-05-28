@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreatePhotosTable extends Migration
 {
@@ -23,8 +24,8 @@ class CreatePhotosTable extends Migration
             $table->string('mime_type')->nullable();
             $table->timestamps();
         });
-         // ここで　書いてください   MEDIUMBLOB　じゃないと、データが保存できないからです Blob型だと小さすぎる MEDIUMBLOBの書き方はメソッドは無いから
-         DB ::statement("ALTER TABLE photos ADD photo_data MEDIUMBLOB");
+        // ここで　書いてください   MEDIUMBLOB　じゃないと、データが保存できないからです Blob型だと小さすぎる MEDIUMBLOBの書き方はメソッドは無いから
+        DB::statement("ALTER TABLE photos ADD photo_data MEDIUMBLOB");
     }
 
     /**

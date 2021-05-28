@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
             ]);
         }
 
-        for($id = 1; $i <= 10, $i++){
+        for($i = 1; $i <= 10; $i++){
             DB::table('users')->insert([
                 'name' => 'テストユーザー' . " " . $i,
                 'email' => 'bbb' . $i . '@example.com',

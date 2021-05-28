@@ -45,6 +45,7 @@
             </div>
         </form>
 
+        
  {{-- 付け足した 不具合なら取り除いて--}}
 @if (Route::has('register'))
     <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>

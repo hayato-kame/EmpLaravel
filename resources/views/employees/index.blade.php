@@ -37,6 +37,9 @@
     </tbody>
 </table>
 
+{{-- <li><a href="{{ url('/users') }}" class="text-lg text-gray-700 underline">ユーザー一覧画面</a></li> --}}
+<li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面</a></li>
+
 @endsection
 
 @section('footer')

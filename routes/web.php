@@ -32,6 +32,7 @@ Route::get('/employees', [ EmployeesController::class, 'index' ])->name('employe
 Route::get('/employees/new_entry_edit', [ EmployeesController::class, 'new_entry_edit' ])->name('employees.new_entry_edit');
 // aリンクでアクセスするので HTTPのメソッドはGETメソッドのアクセスになる
 Route::get('/employees/emp_control', [ EmployeesController::class, 'emp_control' ])->name('employees.emp_control');
+Route::post('/employees/emp_control', [ EmployeesController::class, 'emp_control' ])->name('employees.emp_control');
 
 Route::get('/employees/find', [ EmployeesController::class, 'find' ])->name('employees.find');
 

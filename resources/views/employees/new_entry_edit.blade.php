@@ -50,6 +50,7 @@
             {{-- バイナリーデータがあったら表示する isset関数 で条件分岐する--}}
             @php
                 // dd(isset($employee->photo->photo_data));
+                // dd($action);
             @endphp
 
             @if (isset($employee->photo->photo_data))
@@ -67,8 +68,9 @@
                 {!! Form::file('photo_data', null, ['class' => 'col-sm-9 form-control', 'accept' => ".jpeg, .jpg, .png, .tmp"]) !!}
                 {!! Form::hidden('photo_id', $employee->photo_id) !!}
             </div>
+            {!! Form::hidden('action', $action) !!}
 
-
+            {!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}
         {!! Form::close() !!}
     @endif
 

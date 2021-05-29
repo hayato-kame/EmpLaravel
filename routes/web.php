@@ -33,4 +33,6 @@ Route::get('/employees/new_entry_edit', [ EmployeesController::class, 'new_entry
 // aリンクでアクセスするので HTTPのメソッドはGETメソッドのアクセスになる
 Route::get('/employees/emp_control', [ EmployeesController::class, 'emp_control' ])->name('employees.emp_control');
 
+Route::get('/employees/find', [ EmployeesController::class, 'find' ])->name('employees.find');
 
+Route::post('/employees/postCSV', [ EmployeesController::class, 'postCSV' ])->name('employees.postCSV');

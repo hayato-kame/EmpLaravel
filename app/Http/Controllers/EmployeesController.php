@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Photo;
 
 class EmployeesController extends Controller
 {
@@ -15,8 +16,25 @@ class EmployeesController extends Controller
         return view('employees.index', [ 'employees' => $employees ]);
     }
 
-    public function new_entry_edit()
+    public function new_entry_edit(Request $request)
     {
+        $action = $request->action;
+        // dd($action);
+        switch ($action) {
+            case 'add':
+                $photo = new Photo(); // 親データのインスタンス
+                $employee = new Employee(); // 子データのインスタンス
+
+                return view('employees.new_entry_edit',
+                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action ]);
+                break;
+
+            case 'edit':
+
+                break;
+        }
+
+
 
     }
 
@@ -25,5 +43,14 @@ class EmployeesController extends Controller
 
     }
 
+    public function find()
+    {
+
+    }
+
+    public function postCSV()
+    {
+
+    }
 
 }

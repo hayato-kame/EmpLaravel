@@ -57,8 +57,29 @@
         </table>
     @endif
 
-{{-- <li><a href="{{ url('/users') }}" class="text-lg text-gray-700 underline">ユーザー一覧画面</a></li> --}}
-<li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面ページへ</a></li>
+{{-- 第三引数で ? のクエリー文字列を指定できてます  ?action=add   などのクエリー文字列  --}}
+<button style="margin-top: 15px; margin-right: 15px" type="button" class="btn btn-light" display="inline-block">
+    {!! link_to_route('employees.new_entry_edit', '社員新規作成ページ', ['action' => "add", ] , ['style' => 'color: blue;']) !!}
+</button>
+
+{{-- 第三引数で ? のクエリー文字列を指定できてます  ?action=add   などのクエリー文字列  --}}
+<button style="margin-top: 15px; margin-right: 15px" type="button" class="btn btn-light" display="inline-block">
+    {!! link_to_route('employees.find', '検索...', [] , ['style' => 'color: blue;']) !!}
+</button>
+
+<div class="mt-4 mb-4">
+{{-- CSVのボタンは、社員が一人でもいたら、表示することにする --}}
+@if (count($employees) > 0)
+{!! Form::open(['route' => ['employees.postCSV'], 'method' => 'post'])  !!}
+    {!! Form::submit('CSVファイルに出力', ['class' => 'btn btn-light', 'style' => 'color: blue;' ]) !!}
+{!! Form::close() !!}
+@endif
+</div>
+
+{{--
+    <li><a href="{{ url('/users') }}" class="text-lg text-gray-700 underline">ユーザー一覧画面</a></li>
+    <li><a href="{{ url('/departments') }}" class="text-lg text-gray-700 underline">部署一覧画面ページへ</a></li>
+    --}}
 
 @endsection
 

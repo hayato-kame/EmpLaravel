@@ -14,5 +14,15 @@ class EmployeesController extends Controller
         return view('employees.index', [ 'employees' => $employees ]);
     }
 
+    public function new_entry_edit()
+    {
+
+    }
+
+    public function emp_control()
+    {
+
+    }
+
 
 }

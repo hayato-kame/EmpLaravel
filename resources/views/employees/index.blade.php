@@ -30,16 +30,23 @@
         @foreach($employees as $employee)
         <tr>
             <td>{{$employee->employee_id}}</td>
-            <td>{{$employee->employee_name}}</td>
+            <td>{{$employee->name}}</td>
             <td>
-                {{-- buttonの中に aリンク aリンクはGETアクセスになる --}}
+                {{-- buttonの中に aリンク aリンクはGETアクセスになる  第三引数には ?以降のクエリー文字列を設定できる
+                    ルーティングは
+                    Route::get('/employees/new_entry_edit', [ EmployeesController::class, 'new_entry_edit' ])->name('employees.new_entry_edit');
+                    --}}
                 <button type="button" class="btn btn-primary" display="inline-block">
-                    {!! link_to_route('employees.new_entry_edit', "編集", [ 'action' => 'edit', 'employee_id' => $employee->employee_id ], [] ) !!}
+                    {!! link_to_route('employees.new_entry_edit', "編集", [ 'action' => 'edit', 'employee_id' => $employee->employee_id ], ['style' => 'color: white;'] ) !!}
                 </button>
             </td>
             <td>
-                <button type="button" class="btn btn-primary" display="inline-block">
-                    {!! link_to_route('employees.emp_control', "削除", [ 'action' => 'delete', 'employee_id' => $employee->employee_id ], [] ) !!}
+                {{-- buttonの中に aリンク aリンクはGETアクセスになる 第三引数には ?以降のクエリー文字列を設定できる
+                    ルーティングは
+                    Route::get('/employees/emp_control', [ EmployeesController::class, 'emp_control' ])->name('employees.emp_control');
+                    --}}
+                <button type="button" class="btn btn-danger" display="inline-block">
+                    {!! link_to_route('employees.emp_control', "削除", [ 'action' => 'delete', 'employee_id' => $employee->employee_id ], ['style' => 'color: white;'] ) !!}
                 </button>
             </td>
         </tr>

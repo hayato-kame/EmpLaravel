@@ -22,6 +22,7 @@
         {!! link_to_route('dashboard', 'Dashboardへ戻る', []) !!}
     </div>
 
+    {{-- コレクションの中身の要素が 0以上なら テーブルを表示する --}}
     @if(count($departments) > 0)
         <table class="table table-striped">
             <thead>
@@ -55,6 +56,7 @@
             </tbody>
         </table>
     @endif
+    
     <div>
         {{-- 第三引数で ? 以降のクエリー文字列を指定できます --}}
         <button type="button" class="btn btn-light" display="inline-block">

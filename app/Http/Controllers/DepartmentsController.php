@@ -17,6 +17,8 @@ class DepartmentsController extends Controller
         // all()クラスメソッドの戻り値は Illuminate\Database\Eloquent\Collection オブジェクトであり、配列を内包していることがわかります。
         // コレクションは配列のように複数の値を一度に扱うことができるクラスです。
         $departments = Department::all();
+        // dd($departments);
+        // dd(count($departments));  // 整数が返る
         return view('departments.index', ['departments' => $departments, ]);
         // view() という関数を呼び出しています。第一引数には表示したいViewを指定しています。
         // departments.index は resources/views/departments/index.blade.php を意味します。

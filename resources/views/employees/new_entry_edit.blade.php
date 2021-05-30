@@ -69,6 +69,8 @@
                 {!! Form::hidden('photo_id', $employee->photo_id) !!}
             </div>
             {!! Form::hidden('action', $action) !!}
+            {!! Form::hidden('photo_id', $employee->photo_id) !!}
+            {!! Form::hidden('employee_id', $employee->employee_id) !!}
 
             {!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}
         {!! Form::close() !!}

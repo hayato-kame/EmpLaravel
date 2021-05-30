@@ -32,7 +32,11 @@ class EmployeesController extends Controller
                 break;
 
             case 'edit':
+                $photo = Photo::find($requests->photo_id);
+                $employee = Employee::find($request->employee_id);
 
+                return view('employees.new_entry_edit',
+                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action ]);
                 break;
         }
 
@@ -81,6 +85,21 @@ class EmployeesController extends Controller
                 }
                 break;
             case 'edit':
+
+                // 先に親データのデータベースから変更する。
+                $photo = Photo::find($request->photo_id); // findメソッドの引数はプライマリーキーの値
+
+                // dd($photo);
+                // dd($request->photo_data); // ファイルアップロードがあるかどうか 無いと null
+                // dd(isset($request->photo_data));  // null判定で isset関数を使う、isset関数はNULL以外であれば戻り値にTRUEを返します。  falseを返せば、 null
+                if(isset($request->photo_data) !== false) {
+                    dd($request->photo_data->getRealPath());
+
+                    // ＄photo->photo_data =
+
+                }
+
+
                 break;
             }
             return redirect('/employees');

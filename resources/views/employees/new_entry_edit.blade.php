@@ -57,8 +57,11 @@
             <div class="row mt-4">
                 <span class="col-sm-3">画像：</span>
                 {{-- base64,{{$employee->photo->photo_data　のところ、ちょっと直したのでコントローラ側の 'photo_data'を送らないように修正すること --}}
-                <img src="data:image/{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}"
-                    alt="写真" title="社員の写真" width="300" height="250" class="col-sm-9">
+                {{-- <img src="data:image/{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}"
+                    alt="写真" title="社員の写真" width="300" height="250" class="col-sm-9"> --}}
+                    <figure class="col-sm-9">
+                    <img src="data:{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}" alt="写真" title="社員の写真" width="250" height="250">
+                    </figure>
             </div>
             @endif
 

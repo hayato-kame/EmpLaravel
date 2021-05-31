@@ -87,6 +87,7 @@
             </div>
             {{-- ここまで画像のアップロード --}}
 
+            <small>※ 000-0000 の形式で入力してください</small><br>
             <div class="form-group form-inline row">
                 {!! Form::label('zip_number', '郵便番号:', ['class' => 'col-sm-3 col-form-label', ]) !!}
                 {!! Form::text('zip_number', $employee->zip_number, ['class' => 'col-sm-9 form-control']) !!}
@@ -122,17 +123,35 @@
                 {!! Form::select('department_id', $dep_name_array, $employee->department_id, ['class' => 'form-control ', 'placeholder' => '選択してください']) !!}
             </div>
 
+            <div class="form-group form-inline row">
+                {!! Form::label('hire_date', '入社日:', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::date('hire_date', $employee->hire_date, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
 
-
-            
+            <div class="form-group form-inline row">
+                {!! Form::label('retire_date', '退社日:', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::date('retire_date', $employee->retire_date, ['class' => 'form-dontrol']) !!}
+            </div>
 
             {{-- hiddenフィールドで、３つ送ります --}}
             {!! Form::hidden('action', $action) !!}
             {!! Form::hidden('photo_id', $employee->photo_id) !!}
             {!! Form::hidden('employee_id', $employee->employee_id) !!}
 
-            {!! Form::submit('送信', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('送信', ['class' => 'btn btn-primary', 'confirm' => 'この内容で送信しますか?']) !!}
         {!! Form::close() !!}
+
+        <div style="margin-top: 10px;">
+            {!! Form::open(['route' => ['employees.emp_control', $employee->employee_id], 'method' => 'post']) !!}
+                {!! Form::hidden('action', 'cancel') !!}
+                {!! Form::submit('キャンセル', ['class' => 'btn btn-primary']) !!}
+            {!! Form::close() !!}
+        </div>
+
+        {{-- 第三引数で ? のクエリー文字列を指定できてます  ?action=add   などのクエリー文字列  --}}
+        <button style="margin-top: 10px; margin-bottom: 10px;" type="button" class="btn btn-light" display="inline-block">
+            {!! link_to_route('employees.emp_control', 'キャンセル', ['action' => 'cancel'] , ['style' => 'color: blue;']) !!}
+        </button>
     @endif
 
 

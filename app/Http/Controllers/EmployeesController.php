@@ -130,7 +130,7 @@ class EmployeesController extends Controller
                         // dd($photo->update($param));  // 成功すれば true
 
                         $photo->update($param);
-                        return redirect('/employees');
+                        
 
                     }
 
@@ -146,6 +146,10 @@ class EmployeesController extends Controller
 
 
                 break;
+            case 'cancel':
+                // dd($action);
+                break;
+
             }
             return redirect('/employees');
     }

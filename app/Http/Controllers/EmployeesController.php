@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Photo;
 use Illuminate\Support\Facades\File;
+use App\Models\Department;
 
 
 class EmployeesController extends Controller
 {
+    // 従業員一覧ページの表示
     public function index()
     {
         $employees = Employee::all();  // 戻り値は、Illuminate\Database\Eloquent\Collection のオブジェクトです
@@ -18,17 +20,36 @@ class EmployeesController extends Controller
         return view('employees.index', [ 'employees' => $employees ]);
     }
 
+    // 新規作成ページと編集ページを兼ねて表示する
     public function new_entry_edit(Request $request)
     {
         $action = $request->action;
         // dd($action);
+
+        //　この処理はビューコンポーザに取り出せたら良い　後で　
+        $departments = Department::all();  // セレクトボックスのために必要 戻り値は　Illuminate\Database\Eloquent\Collection
+        // dd($departments);  // コレクション
+        // dd($departments->all());  // これは　配列に変換したもの  0 => App\Models\Department
+        $dep_array = $departments->all();
+
+        // 連想配列にしてください！！
+
+        $dep_name_array = [];
+        foreach($dep_array as $dep) {
+            // dd($dep->department_name);
+            // dd($dep->department_id);
+            // 連想配列の作り方 $変数[キー] = 値
+            $dep_name_array[$dep->department_id] = $dep->department_name;
+        }
+        // dd($dep_name_array);  // "D01" => "総務部"  "D02" => "営業部"  "D03" => "経理部" などが入った連想配列になってる
+
         switch ($action) {
             case 'add':
                 $photo = new Photo(); // 親データのインスタンス
                 $employee = new Employee(); // 子データのインスタンス
 
                 return view('employees.new_entry_edit',
-                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action ]);
+                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action, 'dep_name_array' => $dep_name_array ]);
                 break;
 
             case 'edit':
@@ -36,7 +57,7 @@ class EmployeesController extends Controller
                 $employee = Employee::find($request->employee_id);
 
                 return view('employees.new_entry_edit',
-                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action ]);
+                    [ 'photo' => $photo, 'employee' => $employee, 'action' => $action, 'dep_name_array' => $dep_name_array ]);
                 break;
         }
 

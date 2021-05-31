@@ -29,7 +29,7 @@
         @if ($action == 'add')
             <h3>社員の{{ $label }}ページ</h3>
         @else
-            <h3>社員ID:{{ $employee->employee_id }}の{{ $label }}ページ</h3>
+            <h3>社員ID: {{ $employee->employee_id }} の{{ $label }}ページ</h3>
         @endif
 
         {{-- フラッシュメッセージ リダイレクトされてくるので、セッションスコープから取り出す sessionメソッドの引数は、キーです --}}
@@ -47,30 +47,86 @@
         {{-- 'method' => 'post'  は、 postなので、省略もできます --}}
         {!! Form::model($employee, ['route' => ['employees.emp_control', $employee->employee_id], 'method' => 'post', 'files' => true]) !!}
 
-            {{-- バイナリーデータがあったら表示する isset関数 で条件分岐する--}}
+            <div class="form-group form-inline row">
+                {!! Form::label('name', '名前:', ['class' => 'col-sm-3 col-form-label', ]) !!}
+                {!! Form::text('name', $employee->name, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            <div class="form-group form-inline row">
+                {!! Form::label('age', '年齢:', ['class' => 'col-sm-3 col-form-label', ]) !!}
+                {!! Form::text('age', $employee->age, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            <div class="form-group form-inline row">
+                {!! Form::label('gender', '性別:', ['class' => 'col-sm-3 col-form-label', ]) !!}
+                {!! Form::text('gender', $employee->getStringGender($employee->gender), ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            {{-- 写真の表示と、画像ファイルのアップロード --}}
             @php
                 // dd(isset($employee->photo->photo_data));
                 // dd($action);
             @endphp
 
+            {{-- 写真の表示 バイナリーデータがあったら表示する isset関数 で条件分岐する  --}}
             @if (isset($employee->photo->photo_data))
             <div class="row mt-4">
-                <span class="col-sm-3">画像：</span>
-                {{-- base64,{{$employee->photo->photo_data　のところ、ちょっと直したのでコントローラ側の 'photo_data'を送らないように修正すること --}}
-                {{-- <img src="data:image/{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}"
-                    alt="写真" title="社員の写真" width="300" height="250" class="col-sm-9"> --}}
-                    <figure class="col-sm-9">
-                    <img src="data:{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}" alt="写真" title="社員の写真" width="250" height="250">
+                    <figure class="offset-3 col-sm-9">
+                        <img src="data:{{$employee->photo->mime_type}};base64,{{$employee->photo->photo_data}}" alt="写真" title="社員の写真" width="250" height="250" >
                     </figure>
             </div>
             @endif
+            {{-- ここまで写真の表示 --}}
 
             {{-- 画像のアップロード 　Form::model の  'files' => true  の設定が必要です --}}
             <div class="form-group form-inline row">
                 {!! Form::label('photo_data', '写真:', ['class' => 'col-sm-3 col-form-label', ]) !!}
-                {!! Form::file('photo_data', null, ['class' => 'col-sm-9 form-control', 'accept' => ".jpeg, .jpg, .png, .tmp"]) !!}
+                {{-- Form::file を使い、 ファイル部品の場合は .form-control の代わりに .form-control-file を指定します。 --}}
+                {!! Form::file('photo_data', null, ['class' => 'col-sm-9 form-control-file', 'accept' => ".jpeg, .jpg, .png, .tmp"]) !!}
                 {!! Form::hidden('photo_id', $employee->photo_id) !!}
             </div>
+            {{-- ここまで画像のアップロード --}}
+
+            <div class="form-group form-inline row">
+                {!! Form::label('zip_number', '郵便番号:', ['class' => 'col-sm-3 col-form-label', ]) !!}
+                {!! Form::text('zip_number', $employee->zip_number, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            @php
+                $pref_array = ['', '北海道', '青森県', '岩手県', '宮城県', '秋田県', '山形県', '福島県', '茨城県', '栃木県', '群馬県', '埼玉県', '千葉県', '東京都', '神奈川県', '新潟県', '富山県', '石川県', '福井県', '山梨県', '長野県', '岐阜県', '静岡県', '愛知県', '三重県', '滋賀県', '京都府', '大阪府', '兵庫県', '奈良県', '和歌山県', '鳥取県', '島根県', '岡山県', '広島県', '山口県', '徳島県', '香川県', '愛媛県', '高知県', '福岡県', '佐賀県', '長崎県', '熊本県', '大分県', '宮崎県', '鹿児島県', '沖縄県'];
+            @endphp
+
+            <div class="form-group form-inline row">
+                {!! Form::label('pref', '都道府県:', ['class' => 'col-sm-3 col-form-label', ]) !!}
+                {!! Form::select('pref', $pref_array, $employee->pref, ['class' => 'form-control ', 'placeholder' => '選択してください']) !!}
+            </div>
+
+            <div class="form-group form-inline row">
+                {!! Form::label('address1', '住所1(市区町村郡):', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::text('address1', $employee->address1, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            <div class="form-group form-inline row">
+                {!! Form::label('address2', '住所2(町名番地):', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::text('address2', $employee->address2, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            <div class="form-group form-inline row">
+                {!! Form::label('address3', '住所3(建物名や番号):', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::text('address3', $employee->address3, ['class' => 'col-sm-9 form-control']) !!}
+            </div>
+
+            {{-- employeesテーブルには、　'department_id'カラムしかない 表示を部署名にする 外部キー制約で、departmentプロパティとしてアクセルできるようになってるので  --}}
+            <div class="form-group form-inline row">
+                {!! Form::label('department_id', '所属:', ['class' => 'col-sm-3 col-form-label']) !!}
+                {!! Form::select('department_id', $dep_name_array, $employee->department_id, ['class' => 'form-control ', 'placeholder' => '選択してください']) !!}
+            </div>
+
+
+
+            
+
+            {{-- hiddenフィールドで、３つ送ります --}}
             {!! Form::hidden('action', $action) !!}
             {!! Form::hidden('photo_id', $employee->photo_id) !!}
             {!! Form::hidden('employee_id', $employee->employee_id) !!}

@@ -54,4 +54,6 @@ class Department extends Model
         'department_name.require' => '部署名は必ず入れてください',
     ];
 
+    
+
 }
